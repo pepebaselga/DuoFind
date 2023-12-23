@@ -1,0 +1,5 @@
+to run:
+
+"npm install" - installs new packages that are present
+
+to run, do "npm test" (runs the index.ts file)

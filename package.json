@@ -1,0 +1,19 @@
+{
+  "name": "duofind",
+  "version": "1.0.0",
+  "description": "Cornell's Digital Lost and Found by Pepe Baselga-Garriga and Nicholas Josephson",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx ts-node index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pepebaselga/DuoFind.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pepebaselga/DuoFind/issues"
+  },
+  "homepage": "https://github.com/pepebaselga/DuoFind#readme"
+}
