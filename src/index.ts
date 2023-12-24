@@ -1,10 +1,14 @@
-import express, {Express} from 'express';
+import express, { Express } from 'express';
 import router from './router';
 import http from 'http';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import cors from 'cors';
+import dotenv from 'dotenv';
+import { MongoClient } from 'mongodb';
+
+require('dotenv').config();
 
 /** creating new express app */
 const app = express();
@@ -12,8 +16,8 @@ const app = express();
 /** adding some simple options, just for how requests are handled */
 app.use(cors({
     credentials: true,
-  }));
-  
+}));
+
 app.use(compression());
 
 app.use(cookieParser());
