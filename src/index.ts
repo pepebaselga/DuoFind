@@ -76,8 +76,3 @@ async function startServer() {
 }
 
 startServer();
-
-/** serving the serve, go to http://localhost:3000 */
-const httpServer = http.createServer(app);
-const PORT: any = 3000
-httpServer.listen(PORT, () => console.log(`Server is now running on port ${PORT}.`))
