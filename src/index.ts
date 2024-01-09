@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import cors from 'cors';
 import dotenv from 'dotenv';
+const { auth, requiredScopes } = require('express-oauth2-jwt-bearer');
 import * as fs from 'fs';
 
 dotenv.config({ path: './DuoFind.env' });
@@ -34,19 +35,25 @@ async function startServer() {
         app.use(cookieParser());
         app.use(bodyParser.json());
 
+        const jwtCheck = auth({
+            audience: 'http://localhost:3000',
+            issuerBaseURL: 'https://dev-pyt4wix26nyx7hjt.us.auth0.com/',
+            tokenSigningAlg: 'RS256'
+        });
+        app.use(jwtCheck)
 
         /** adding a basic options route and setting response header for all requests */
-        app.use((req, res, next) => {
-            res.header('Access-Control-Allow-Origin', "*");
+        // app.use((req, res, next) => {
+        //     res.header('Access-Control-Allow-Origin', "*");
 
-            res.header('Access-Control-Allow-Headers', 'origin, X-Requested-With,Content-Type,Accept, Authorization');
+        //     res.header('Access-Control-Allow-Headers', 'origin, X-Requested-With,Content-Type,Accept, Authorization');
 
-            if (req.method === 'OPTIONS') {
-                res.header('Access-Control-Allow-Methods', 'GET PATCH DELETE POST PUT')
-                return res.status(200).json({});
-            }
-            next();
-        });
+        //     if (req.method === 'OPTIONS') {
+        //         res.header('Access-Control-Allow-Methods', 'GET PATCH DELETE POST PUT')
+        //         return res.status(200).json({});
+        //     }
+        //     next();
+        // });
 
         app.use('/', router());
 
@@ -59,10 +66,10 @@ async function startServer() {
         });
 
         // HTTPS server setup
-        const httpsOptions = {
-            key: fs.readFileSync('path/to/key.pem'), // Replace with path to your key
-            cert: fs.readFileSync('path/to/cert.pem') // Replace with path to your cert
-        };
+        // const httpsOptions = {
+        //     key: fs.readFileSync('path/to/key.pem'), // Replace with path to your key
+        //     cert: fs.readFileSync('path/to/cert.pem') // Replace with path to your cert
+        // };
 
         // Rest of your Express server setup...
         const PORT = process.env.PORT || 3000;
@@ -77,7 +84,3 @@ async function startServer() {
 
 startServer();
 
-/** serving the serve, go to http://localhost:3000 */
-const httpServer = http.createServer(app);
-const PORT: any = 3000
-httpServer.listen(PORT, () => console.log(`Server is now running on port ${PORT}.`))
