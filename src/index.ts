@@ -49,7 +49,7 @@ async function startServer() {
         });
 
         mongoose.Promise = Promise;
-        mongoose.connect('mongodb+srv://admin:cQd83fa4Yyom1CIP@duofind.zefkpqz.mongodb.net/?retryWrites=true&w=majority')
+        mongoose.connect('')
             .then(() => console.log('Connected to database'));
         mongoose.connection.on('error', (error: Error) => console.log(error));
 
