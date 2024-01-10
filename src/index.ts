@@ -1,7 +1,7 @@
 import express from 'express';
 import { MongoClient } from 'mongodb';
 import router from './router';
-import http from 'http';
+import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
@@ -21,15 +21,15 @@ if (!mongoURI) {
     process.exit(1); // Exit if URI is not set
 }
 
-const client = new MongoClient(mongoURI);
+// const client = new MongoClient(mongoURI);
 
 async function startServer() {
     try {
         // Connect to MongoDB
-        await client.connect();
-        console.log('Connected to MongoDB');
+        // await client.connect();
+        // console.log('Connected to MongoDB');
 
-        const db = client.db('DuoFind'); // Replace with your database name
+        // const db = client.db('DuoFind'); // Replace with your database name
         app.use(cors({ credentials: true }));
         app.use(compression());
         app.use(cookieParser());
@@ -40,24 +40,21 @@ async function startServer() {
             issuerBaseURL: 'https://dev-pyt4wix26nyx7hjt.us.auth0.com/',
             tokenSigningAlg: 'RS256'
         });
-        app.use(jwtCheck)
+        // app.use(jwtCheck)
 
-        /** adding a basic options route and setting response header for all requests */
-        // app.use((req, res, next) => {
-        //     res.header('Access-Control-Allow-Origin', "*");
 
-        //     res.header('Access-Control-Allow-Headers', 'origin, X-Requested-With,Content-Type,Accept, Authorization');
+        const PORT = process.env.PORT || 3000;
+        app.listen(PORT, () => {
+            console.log(`Server running on port ${PORT}`);
+        });
 
-        //     if (req.method === 'OPTIONS') {
-        //         res.header('Access-Control-Allow-Methods', 'GET PATCH DELETE POST PUT')
-        //         return res.status(200).json({});
-        //     }
-        //     next();
-        // });
+        mongoose.Promise = Promise;
+        mongoose.connect('mongodb+srv://admin:cQd83fa4Yyom1CIP@duofind.zefkpqz.mongodb.net/?retryWrites=true&w=majority')
+            .then(() => console.log('Connected to database'));
+        mongoose.connection.on('error', (error: Error) => console.log(error));
 
         app.use('/', router());
 
-        /** creating a error endpoint - this endpoint is called if no endpoint is found */
         app.use((req, res, next) => {
             const error = new Error('not found');
             return res.status(404).json({
@@ -65,17 +62,8 @@ async function startServer() {
             });
         });
 
-        // HTTPS server setup
-        // const httpsOptions = {
-        //     key: fs.readFileSync('path/to/key.pem'), // Replace with path to your key
-        //     cert: fs.readFileSync('path/to/cert.pem') // Replace with path to your cert
-        // };
-
         // Rest of your Express server setup...
-        const PORT = process.env.PORT || 3000;
-        app.listen(PORT, () => {
-            console.log(`Server running on port ${PORT}`);
-        });
+        
     } catch (err) {
         console.error('Failed to connect to MongoDB', err);
         process.exit(1);
