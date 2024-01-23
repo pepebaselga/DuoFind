@@ -1,5 +1,4 @@
 import express from 'express';
-import { MongoClient } from 'mongodb';
 import router from './router';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
@@ -7,8 +6,9 @@ import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import cors from 'cors';
 import dotenv from 'dotenv';
-const { auth, requiredScopes } = require('express-oauth2-jwt-bearer');
-import * as fs from 'fs';
+const { auth } = require('express-oauth2-jwt-bearer');
+const path = require('path');
+
 
 dotenv.config({ path: './DuoFind.env' });
 /** creating new express app */
@@ -49,9 +49,11 @@ async function startServer() {
         });
 
         mongoose.Promise = Promise;
-        mongoose.connect('')
+        mongoose.connect('mongodb+srv://admin:cQd83fa4Yyom1CIP@duofind.zefkpqz.mongodb.net/?retryWrites=true&w=majority')
             .then(() => console.log('Connected to database'));
         mongoose.connection.on('error', (error: Error) => console.log(error));
+
+        app.use("/public", express.static('public'))
 
         app.use('/', router());
 

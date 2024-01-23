@@ -101,7 +101,7 @@
   },
   "include": [
     "src/**/*"
-  ],
+, "public"  ],
   "exclude": [
     "node_modules"
   ]
