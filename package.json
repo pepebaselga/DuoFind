@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/pepebaselga/DuoFind#readme",
   "dependencies": {
+    "compass-mixins": "^0.12.12",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",

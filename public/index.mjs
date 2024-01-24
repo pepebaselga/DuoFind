@@ -2,9 +2,9 @@
 let map;
 
 async function getItems() {
-  return new Promise((resolve,reject) => {
+  return new Promise((resolve, reject) => {
     let xhr = new XMLHttpRequest();
-    const url='http://localhost:3000/items/';
+    const url = 'http://localhost:3000/items/';
     xhr.open("GET", url);
     xhr.send();
     xhr.onload = () => {
@@ -23,7 +23,7 @@ async function initMap() {
 
   // The map, centered at Uluru
   map = new Map(document.getElementById("map"), {
-    zoom: 4,
+    zoom: 17,
     center: { lat: 42.4488, lng: -76.4866 },
     mapId: "DEMO_MAP_ID",
   });
@@ -31,7 +31,7 @@ async function initMap() {
   const items = await getItems();
 
   console.log(items)
-  items.forEach(entry => { 
+  items.forEach(entry => {
     const position = { lat: parseInt(entry.lat), lng: parseInt(entry.long) };
     new AdvancedMarkerElement({
       map: map,
@@ -41,7 +41,7 @@ async function initMap() {
   })
 
   // The marker, positioned at Uluru
-  
+
 }
 
 initMap();

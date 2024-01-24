@@ -31,10 +31,10 @@ const CornellCampus: React.FC = () => {
 
   };
 
-  const center = { lat: 42.449, lng: -76.480 };
+  const center = { lat: 42.449, lng: 76.480 };
   return (
     <div>
-      <MapContainer center={center} zoom={13} style={{ height: '400px' }}>
+      <MapContainer center={center} zoom={9} style={{ height: '200px' }}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution="&copy; OpenStreetMap contributors"
