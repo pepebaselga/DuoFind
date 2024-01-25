@@ -3,7 +3,7 @@ window.onload = async () => {
         domain: "dev-pyt4wix26nyx7hjt.us.auth0.com",
         clientId: "0PDRoTY8KZM7qF8fCQj9ahPItalJCbfz",
         authorizationParams: {
-          redirect_uri: window.location.origin
+          redirect_uri: "http://localhost:3000/home"
         }
       }).then(async (auth0Client) => {
         // Assumes a button with id "login" in the DOM
@@ -22,28 +22,38 @@ window.onload = async () => {
         }
       
         // Assumes a button with id "logout" in the DOM
-        const logoutButton = document.getElementById("btn-logous");
+        const logoutButton = document.getElementById("btn-logout");
       
         logoutButton.addEventListener("click", (e) => {
           e.preventDefault();
           auth0Client.logout();
         });
+
+
       
         const isAuthenticated = await auth0Client.isAuthenticated();
-        const userProfile = await auth0Client.getUser();
-      
-        // Assumes an element with id "profile" in the DOM
-        const profileElement = document.getElementById("profile");
-      
+
         if (isAuthenticated) {
-          profileElement.style.display = "block";
-          profileElement.innerHTML = `
-                  <p>${userProfile.name}</p>
-                  <img src="${userProfile.picture}" />
-                `;
-        } else {
-          profileElement.style.display = "none";
+            document.getElementById("gated-content").classList.remove("hidden");
+
+            document.getElementById(
+              "ipt-access-token"
+            ).innerHTML = await auth0Client.getTokenSilently();
         }
+        // const userProfile = await auth0Client.getUser();
+      
+        // // Assumes an element with id "profile" in the DOM
+        // const profileElement = document.getElementById("profile");
+      
+        // if (isAuthenticated) {
+        //   profileElement.style.display = "block";
+        //   profileElement.innerHTML = `
+        //           <p>${userProfile.name}</p>
+        //           <img src="${userProfile.picture}" />
+        //         `;
+        // } else {
+        //   profileElement.style.display = "none";
+        // }
       });
   }
 

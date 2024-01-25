@@ -7,6 +7,10 @@
   width: 100%;
 }
 
+.hidden {
+  display: none;
+}
+
 /* 
    * Optional: Makes the sample page fill the window. 
    */
