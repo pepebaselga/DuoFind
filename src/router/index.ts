@@ -1,6 +1,6 @@
 import express from 'express';
 
-import items from './users';
+import items from './items';
 
 import webpage from './webpage' 
 

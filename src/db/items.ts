@@ -5,13 +5,16 @@ import mongoose from 'mongoose';
 const ItemSchema = new mongoose.Schema({
 //   _id : {type : ObjectId, required: false},
   username: { type: String, required: true },
-  item: {type: String, required: true}
+  item: {type: String, required: true},
+  lat: {type: String, required: true},
+  lng: {type: String, required: true}
 });
 
 export const UserModel = mongoose.model('items', ItemSchema);
 
 // User Actions
 export const getItems = () => UserModel.find();
+export const createItem = (values: Record<string, any>) => new UserModel(values).save().then((user) => user.toObject());
 // export const getUserByEmail = (email: string) => UserModel.findOne({ email });
 // export const getUserBySessionToken = (sessionToken: string) => UserModel.findOne({ 'authentication.sessionToken': sessionToken });
 // export const getUserById = (id: string) => UserModel.findById(id);

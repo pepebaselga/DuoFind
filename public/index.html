@@ -3,9 +3,11 @@
 <head>
   <title>Add Map</title>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+  <script src="../public/auth.mjs"></script>
 
-  <link rel="stylesheet" type="text/css" href="./style.css" />
-  <script type="module" src="./index.mjs"></script>
+  <link rel="stylesheet" type="text/css" href="../public/style.css" />
+  <script type="module" src="../public/index.mjs"></script>
 </head>
 
 <body>
@@ -18,85 +20,9 @@
   <script>(g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })
       ({ key: "AIzaSyB_zc3S9Sve1qu589TK9zTOYb1olOEZj-Q", v: "weekly" });</script>
 
-  <div class="form">
 
-    <ul class="tab-group">
-      <li class="tab active"><a href="#signup">Sign Up</a></li>
-      <li class="tab"><a href="#login">Log In</a></li>
-    </ul>
-
-    <div class="tab-content">
-      <div id="signup">
-        <h1 style="color: #B31B1B" style="font-size: 35px">Cornell'S Digital Lost and Found</h1>
-
-        <form action="/" method="post">
-
-          <div class="top-row">
-            <div class="field-wrap">
-              <label>
-                Item<span class="req">*</span>
-              </label>
-              <input type="text" required autocomplete="off" />
-            </div>
-
-            <div class="field-wrap">
-              <label>
-                Location<span class="req">*</span>
-              </label>
-              <input type="text" required autocomplete="off" />
-            </div>
-          </div>
-
-          <div class="field-wrap">
-            <label>
-              Email Adress<span class="req">*</span>
-            </label>
-            <input type="email" required autocomplete="off" />
-          </div>
-
-          <div class="field-wrap">
-            <label>
-              Password<span class="req">*</span>
-            </label>
-            <input type="password" required autocomplete="off" />
-          </div>
-
-          <button type="submit" class="button button-block">Get Started</button>
-
-        </form>
-
-      </div>
-
-      <div id="login">
-        <h1>Welcome Back!</h1>
-
-        <form action="/" method="post">
-
-          <div class="field-wrap">
-            <label>
-              Email Address<span class="req">*</span>
-            </label>
-            <input type="email" required autocomplete="off" />
-          </div>
-
-          <div class="field-wrap">
-            <label>
-              Password<span class="req">*</span>
-            </label>
-            <input type="password" required autocomplete="off" />
-          </div>
-
-          <p class="forgot"><a href="#">Forgot Password?</a></p>
-
-          <button class="button button-block">Log In</button>
-
-        </form>
-
-      </div>
-
-    </div><!-- tab-content -->
-
-  </div> <!-- /form -->
+  <button id="btn-login" onclick="login()">Log in</button>
+  <button id="btn-logout" onclick="logout()">Log out</button>
 </body>
 
 </html>
